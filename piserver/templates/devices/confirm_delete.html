@@ -6,7 +6,9 @@
         Are you sure that you want to delete device {{ device.name }}?
 
         <br />
+        <br />
+
         <input type="submit" class="button button-primary" value="Delete" />
-        <a class="button" href="{{ url_for('list_devices') }}">Cancel</a>
+        <a class="button" href="{{ url_for('view_device', id=device.id) }}">Cancel</a>
     </form>
 {% endblock %}

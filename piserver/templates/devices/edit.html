@@ -16,11 +16,16 @@
         {{ form.ip_address.label }}
         {{ form.ip_address(size=50) }} <br />
 
-        {{ form.unit.label }}
-        {{ form.unit(size=50) }} <br />
+        {{ form.output_pin.label }}
+        {{ form.output_pin(size=50) }} <br />
 
         <br />
         <input type="submit" class="button button-primary" value="Save" />
-        <a class="button" href="{{ url_for('list_devices') }}">Cancel</a>
+
+        {% if not device %}
+            <a class="button" href="{{ url_for('list_devices') }}">Cancel</a>
+        {% else %}
+            <a class="button" href="{{ url_for('view_device', id=device.id) }}">Cancel</a>
+        {% endif %}
     </form>
 {% endblock %}
