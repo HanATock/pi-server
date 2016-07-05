@@ -23,3 +23,18 @@ def create_device():
         return redirect(url_for('list_devices'))
 
     return render_template('devices/edit.html', form=form)
+
+
+@app.route('/devices/edit/<int:id>', methods=['GET', 'POST'])
+def edit_device(id):
+
+    device = Device.query.get_or_404(id)
+    form = DeviceForm(obj=device)
+    if form.validate_on_submit():
+        form.populate_obj(device)
+
+        db.session.commit()
+
+        return redirect(url_for('list_devices'))
+
+    return render_template('devices/edit.html', form=form, device=device)
