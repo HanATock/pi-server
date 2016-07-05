@@ -1,5 +1,5 @@
-from flask import render_template, redirect, url_for
-
+from flask import render_template, redirect, request, url_for
+from flask_wtf import Form
 from piserver import app, db
 from piserver.db_models import Device
 from piserver.forms import DeviceForm
@@ -27,7 +27,6 @@ def create_device():
 
 @app.route('/devices/edit/<int:id>', methods=['GET', 'POST'])
 def edit_device(id):
-
     device = Device.query.get_or_404(id)
     form = DeviceForm(obj=device)
     if form.validate_on_submit():
@@ -38,3 +37,15 @@ def edit_device(id):
         return redirect(url_for('list_devices'))
 
     return render_template('devices/edit.html', form=form, device=device)
+
+
+@app.route('/devices/delete/<int:id>', methods=['GET', 'POST'])
+def delete_device(id):
+    device = Device.query.get_or_404(id)
+    if request.method == 'POST':
+        db.session.delete(device)
+        db.session.commit()
+
+        return redirect(url_for('list_devices'))
+
+    return render_template('devices/confirm_delete.html', device=device)

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Delete device</h1>
+    <form method="POST">
+        Are you sure that you want to delete device {{ device.name }}?
+
+        <br />
+        <input type="submit" class="button button-primary" value="Delete" />
+        <a class="button" href="{{ url_for('list_devices') }}">Cancel</a>
+    </form>
+{% endblock %}
