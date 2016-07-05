@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if not device %}
+        <h1>New device</h1>
+    {% else %}
+        <h1>Edit device</h1>
+    {% endif %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.name.label }}
+        {{ form.name(size=50) }} <br />
+
+        {{ form.ip_address.label }}
+        {{ form.ip_address(size=50) }} <br />
+
+        {{ form.unit.label }}
+        {{ form.unit(size=50) }} <br />
+
+        <br />
+        <input type="submit" class="button button-primary" value="Save" />
+    </form>
+{% endblock %}

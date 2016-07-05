@@ -8,9 +8,14 @@ class Device(db.Model):
 
     name = db.Column(db.String(255))
     ip_address = db.Column(db.String(255))
+    unit = db.Column(db.String(10))
 
     measurements = db.relationship('Measurement', cascade='all, delete-orphan',
                                    order_by='Measurement.timestamp.desc()')
+
+    @property
+    def current_value(self):
+        return self.measurements[0].value if len(self.measurements) > 0 else 0
 
 
 class Measurement(db.Model):
